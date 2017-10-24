@@ -1,6 +1,5 @@
 import tensorflow as tf
 import tensorlayer as tl
-import math
 import helpers
 
 

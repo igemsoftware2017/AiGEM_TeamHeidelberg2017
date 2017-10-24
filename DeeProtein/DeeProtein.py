@@ -3,14 +3,16 @@ import customlayers
 import tensorlayer as tl
 import tensorflow as tf
 import time, os, glob
-import re
 import string
 import json
+import wget
 import numpy as np
+import re
 from tensorflow.contrib.tensorboard.plugins import projector
 from collections import OrderedDict
 from sklearn import decomposition
 np.set_printoptions(threshold=np.inf) #for debug
+
 
 class DeeProtein():
     """The main class for the DeeProtein module.
@@ -133,6 +135,22 @@ class DeeProtein():
             f.write(json.dumps(manifest, indent=2, sort_keys=False))
         self.log_file.write('[*] Saved inference parameters!\n')
 
+    def download_weights(self):
+        """Download the weigths to restore DeeProtein from the 2017 iGEM wiki.
+
+        Returns:
+          A path to the dir containing the downloaded weigths.
+        """
+        url = 'https://zenodo.org/record/1035806/files/DeeProtein_weigths_ResNet30_886.tar.gz'
+        curr_wd = os.getcwd()
+        if not os.path.exists(self._opts._restorepath):
+            os.mkdir(self._opts._restorepath)
+        os.chdir(self._opts._restorepath)
+        zip = wget.download(url)
+        helpers.untar(zip)
+        os.chdir(curr_wd)
+        return os.path.join(self._opts._restorepath, 'DeeProtein_weights/')
+
     def load_conv_weights_npz(self, network, session, name='DeeProtein'):
         """Loads the model up to the last convolutional layer.
         Load the weights for the convolutional layers from a pretrained model.
@@ -149,21 +167,28 @@ class DeeProtein():
         # check if filepath exists:
         file = os.path.join(self._opts._restorepath, '%s_conv_part.npz' % name)
         self.log_file.write('[*] Loading %s\n' % file)
-        if tl.files.file_exists(file):
-            # custom load_ckpt op:
-            d = np.load(file)
-            params = [val[1] for val in sorted(d.items(), key=lambda tup: int(tup[0]))]
-            # params = [p for p in params if not 'outlayer' in p.name]
-            # original OP:
-            # params = tl.files.load_npz_dict(name=file)
-            # if name == 'Classifier':
-            #     params = [p for p in params[:-4]]
-            tl.files.assign_params(session, params, network)
-            self.log_file.write('[*] Restored conv weights!\n')
-            return network
-        else:
+        if not tl.files.file_exists(file):
             self.log_file.write('[*] Loading %s FAILED. File not found.\n' % file)
-            return False
+            self.log_file.write('Trying to download weights from iGEM-HD-2017.\n')
+            weights_dir = self.download_weights()
+            file = os.path.join(weights_dir, '%s_conv_part.npz' % name)
+            if not tl.files.file_exists(file):
+                self.log_file.write('[*] Download weights from iGEM-HD-2017 FAILED. ABORTING.\n')
+                exit(-1)
+            else:
+                self.log_file.write('Download successful.\n')
+                pass
+        # custom load_ckpt op:
+        d = np.load(file)
+        params = [val[1] for val in sorted(d.items(), key=lambda tup: int(tup[0]))]
+        # params = [p for p in params if not 'outlayer' in p.name]
+        # original OP:
+        # params = tl.files.load_npz_dict(name=file)
+        # if name == 'Classifier':
+        #     params = [p for p in params[:-4]]
+        tl.files.assign_params(session, params, network)
+        self.log_file.write('[*] Restored conv weights!\n')
+        return network
 
     def load_model_weights(self, network, session, name='DeeProtein'):
         """Load the weights for the convolutional layers from a pretrained model.
@@ -180,18 +205,30 @@ class DeeProtein():
         """
         # check if filepath exists:
         file = os.path.join(self._opts._restorepath, '%s_complete.npz' % name)
-        if tl.files.file_exists(file):
-            # custom load_ckpt op:
-            d = np.load(file)
-            params = [val[1] for val in sorted(d.items(), key=lambda tup: int(tup[0]))]
-            tl.files.assign_params(session, params, network)
-            self.log_file.write('[*] Restored model weights!\n')
-            print('[*] Restored model weights!\n')
-            return network
-        else:
+        if not tl.files.file_exists(file):
             self.log_file.write('[*] Loading %s FAILED. File not found.\n' % file)
-            print('[*] Loading %s FAILED. File not found.\n' % file)
-            return False
+            if self._opts._nclasses == 886:
+                self.log_file.write('[*] Suitable weigths found on iGEM-Servers.\n')
+                self.log_file.write('Trying to download weights from iGEM-HD-2017.\n')
+                weights_dir = self.download_weights()
+                file = os.path.join(weights_dir, '%s_conv_part.npz' % name)
+                if not tl.files.file_exists(file):
+                    self.log_file.write('[*] Download weights from iGEM-HD-2017 FAILED. ABORTING.\n')
+                    exit(-1)
+                else:
+                    self.log_file.write('Download successful.\n')
+                    pass
+            else:
+                self.log_file.write('[*] No suitable weights on Servers. ABORTING.\n')
+                exit(-1)
+
+        # custom load_ckpt op:
+        d = np.load(file)
+        params = [val[1] for val in sorted(d.items(), key=lambda tup: int(tup[0]))]
+        tl.files.assign_params(session, params, network)
+        self.log_file.write('[*] Restored model weights!\n')
+        print('[*] Restored model weights!\n')
+        return network
 
     def load_complete_model_eval(self, network, session, name='DeeProtein'):
         """Restores the complete model from its latest save (.npz) for evaluation.
@@ -425,6 +462,7 @@ class DeeProtein():
             tl.layers.set_name_reuse(True)
 
             seq_in_layer = tl.layers.InputLayer(seq_input, name='seq_input_layer%s' % name_suffix)
+
 ########################################################################################################################
 #                                                   Encoder                                                            #
 ########################################################################################################################
@@ -671,8 +709,10 @@ class DeeProtein():
             tf.summary.scalar('FDR', fdr, collections=self.summary_collection)
             tf.summary.scalar('TNR', tnr, collections=self.summary_collection)
             tf.summary.scalar('F1', f1_score, collections=self.summary_collection)
-            tf.summary.scalar('avg_pred_positives', tf.divide(nr_pred_positives, self._opts._batchsize), collections=self.summary_collection)
-            tf.summary.scalar('avg_true_positives', tf.divide(nr_true_positives, self._opts._batchsize), collections=self.summary_collection)
+            tf.summary.scalar('avg_pred_positives', tf.divide(nr_pred_positives, self._opts._batchsize),
+                              collections=self.summary_collection)
+            tf.summary.scalar('avg_true_positives', tf.divide(nr_true_positives, self._opts._batchsize),
+                              collections=self.summary_collection)
 
             # get the FALSE POSITIVE LOSS:
             fp_loss = tf.divide(nr_false_positives, self._opts._batchsize)
@@ -815,8 +855,11 @@ class DeeProtein():
             # define the filenames for validation and training:
             train_filenames = glob.glob(os.path.join(self._opts._batchesdir,
                                                      '*train_batch_%s_*' % str(self._opts._windowlength)))
-
-            with tf.device('/gpu:{}'.format(self._opts._gpu)):
+            if self._opts._gpu == 'True':
+                device = '/gpu:0'
+            else:
+                device = '/cpu:0'
+            with tf.device(device):
                 # graph for training:
                 train_batch, train_labels, _, _ = self.input_pipeline(train_filenames, valid_mode=False)
                 classifier, _ = self.model(train_batch, valid_mode=False)
@@ -916,8 +959,11 @@ class DeeProtein():
         with eval_graph.as_default():
 
             self.initialize_helpers()
-
-            with tf.device('/gpu:{}'.format(self._opts._gpu)):
+            if self._opts._gpu == 'True':
+                device = '/gpu:0'
+            else:
+                device = '/cpu:0'
+            with tf.device(device):
                 with tf.Session(config=config) as self.session:
                     if self.valid_graph_initialized:
                         tl.layers.set_name_reuse(enable=True)
@@ -1027,7 +1073,11 @@ class DeeProtein():
         # allow growth to survey the consumed GPU memory
         config.gpu_options.allow_growth=True
         with eval_graph.as_default():
-            with tf.device('/gpu:{}'.format(self._opts._gpu)):
+            if self._opts._gpu == 'True':
+                device = '/gpu:0'
+            else:
+                device = '/cpu:0'
+            with tf.device(device):
                 with tf.Session(config=config) as sess:
                     if self.valid_graph_initialized:
                         tl.layers.set_name_reuse(enable=True)
@@ -1135,7 +1185,8 @@ class DeeProtein():
             # add the batch percentage and determine the number of batches in an epoch
 
             input_seq_node = tf.placeholder(dtype=tf.float32,
-                                            shape=[self._opts._batchsize, self._opts._depth, self._opts._windowlength, 1])
+                                            shape=[self._opts._batchsize,
+                                                   self._opts._depth, self._opts._windowlength, 1])
 
             inference_net, _ = self.model(input_seq_node, valid_mode=False)
 

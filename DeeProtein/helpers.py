@@ -6,6 +6,7 @@ import re, os
 import random
 import math
 import json
+import tarfile
 import matplotlib.pyplot as plt
 import sklearn.metrics
 from seaborn import barplot, set_style
@@ -32,11 +33,9 @@ class OptionHandler():
       _traindata: `str` the path to the traindataset.
       _validdata: `str` the path to the validdataset.
       _batchesdir: `str` the path to the examples directory.
-      _inferencedata: `str` the path to the inferencedataset.
       _inferencemode: `str` if 'True' model is initialized in inference mode.
       _labels: `str` the type od labels to use must be one of ['EC' or 'GO']. Until now only 'GO' is fully implemented.
       _nclasses: `int32` the number of classes to consider. This number must match the line number in the EC_file.
-      _topk: `int32` the number of top predictions to retrieve from inference mode.
       _classbalancing: `str` if 'True' the classes are weighted for their size/their importance during training.
       _maxclassinbalance: `int32` the maximum weight a class can obtain.
       _dropoutrate: `float32` the dropout to assign to fully connected layers.
@@ -61,17 +60,14 @@ class OptionHandler():
         self._allowsoftplacement = config_dict['allow_softplacement']
         self._numepochs = config_dict['num_epochs']
         self._numsteps = config_dict['num_steps']
-        self._embeddingdim = config_dict['embedding_dim']
         self._depth = config_dict['depth']
         self._structuredims = config_dict['structure_dims']
         self._traindata = config_dict['train_data']
         self._validdata = config_dict['valid_data']
         self._batchesdir = config_dict['batches_dir']
-        self._inferencedata = config_dict['inference_data']
         self._inferencemode = True if config_dict['inference_mode'] == 'True' else False
         self._labels = config_dict['labels']
         self._nclasses = config_dict['n_classes']
-        self._topk = config_dict['topk']
         self._classbalancing = True if config_dict['class_balancing'] == 'True' else False
         self._maxclassinbalance = config_dict['maxclass_inbalance']
         self._dropoutrate = config_dict['dropoutrate']
@@ -346,7 +342,6 @@ class BatchGenerator():
     def __init__(self, optionhandler):
         self._opts = optionhandler
         self.mode = self._opts._batchgenmode # one of ['window', 'bigbox', 'dynamic']
-        self.inferencedata = open(self._opts._inferencedata, 'r')
         self.traindata = open(self._opts._traindata, 'r')
         self.validdata = open(self._opts._validdata, 'r')
         self.AA_to_id = {}
@@ -515,7 +510,8 @@ class BatchGenerator():
             start_pos = 0 #because our sequence sits at the beginning of the box
             length = len(seq_matrix)  #true length (1 based)
             # now encode the sequence in one-hot
-            oh_seq_matrix = np.reshape(self.AA_enc.fit_transform(np.reshape(seq_matrix, (1, -1))), (len(seq_matrix), 20))
+            oh_seq_matrix = np.reshape(self.AA_enc.fit_transform(np.reshape(seq_matrix, (1, -1))),
+                                       (len(seq_matrix), 20))
             # pad the sequence to the boxsize:
             npad = ((0, self._opts._windowlength-length), (0, 0))
             padded_seq_matrix = np.pad(oh_seq_matrix, pad_width=npad, mode='constant', constant_values=0)
@@ -663,7 +659,8 @@ class BatchGenerator():
           seq_tensor_batch: A `Tensor`, [batchsize, 20, windowlength, 1] holding the random data batch.
           onehot_labelled_batch: A `Tensor`, [batchsize, n_classes] holding the random labels.
         """
-        seq_tensor_batch = tf.random_normal([self._opts._batchsize, self._opts._embeddingdim, self._opts._windowlength, 1])
+        seq_tensor_batch = tf.random_normal([self._opts._batchsize, self._opts._embeddingdim,
+                                             self._opts._windowlength, 1])
 
         label_batch = [np.random.randint(1,self._opts._nclasses) for _ in range(self._opts._batchsize)]
         index_batch = [tf.constant(label) for label in label_batch]
@@ -671,55 +668,6 @@ class BatchGenerator():
         onehot_labelled_batch = tf.one_hot(indices=tf.cast(label_tensor, tf.int32),
                                            depth=self._opts._nclasses)
         return seq_tensor_batch, onehot_labelled_batch
-
-    def generate_inference_batch(self):
-        """Generate a batch of sequences for the inference mode.
-        Generates a batch to infer the labels for sequences, as everything is fed into the same graph,
-        we use the same kind of preprocessing and basically the same function as generate_batch but on
-        another file specified in the inference_data key in the config_dict.
-
-        Returns:
-          batch: A `Tensor`, [batchsize, 20, windowlength, 1] holding the inference data batch.
-          labels: A `Tensor`, [batchsize, n_classes] holding the inference labels. This is obviously redundant as there
-            are not labels in the inference mode. This tensor only mocks susequent ops.
-          positions: A `Tensor` [batchsize, start, end], where the start/end position of a sequence is.
-        """
-        seq_tensors = []
-        label_batch = []
-        positions = np.ndarray([self._opts._batchsize, 2])
-        lengths = np.ndarray([self._opts._batchsize])
-        in_csv = self.inferencedata
-        for i in range(self._opts._batchsize):
-            try:
-                """ Note that this is not shuffled! """
-                ECclass, seq_tensor, start_pos, end_pos = self._process_csv(in_csv, return_name=False,
-                                                                      encode_labels=True)
-                label_batch.append(ECclass)
-                seq_tensors.append(seq_tensor)
-            except IndexError: # catches error from csv_decoder
-                # reopen the file:
-                in_csv.close()
-                # TODO: implement file shuffling when we reopen the file
-                self.inferencedata = open(self._opts._inferencedata, 'r')
-                in_csv = self.inferencedata
-                """ redo """
-                ECclass, seq_tensor, start_pos, end_pos = self._process_csv(in_csv, return_name=False,
-                                                                            encode_labels=True)
-                label_batch.append(ECclass)
-                seq_tensors.append(seq_tensor)
-
-                positions[i, 0] = start_pos
-                positions[i, 1] = end_pos
-                lengths[i] = end_pos
-
-        batch = np.stack(seq_tensors, axis=0)
-
-        if 'spp' in self.mode:
-            return batch, label_batch, lengths
-        if 'padded' in self.mode:
-            return batch, label_batch, lengths
-        else:
-            return batch, label_batch, positions
 
     def generate_batch(self, is_train):
         """Generate a batch for the feed_dict pipeline.
@@ -999,7 +947,8 @@ class TFrecords_generator():
             start_pos = 0 #because our sequence sits at the beginning of the box
             length = len(seq_matrix)  #true length (1 based)
             # now encode the sequence in one-hot
-            oh_seq_matrix = np.reshape(self.AA_enc.fit_transform(np.reshape(seq_matrix, (1, -1))), (len(seq_matrix), 20))
+            oh_seq_matrix = np.reshape(self.AA_enc.fit_transform(np.reshape(seq_matrix,
+                                                                            (1, -1))), (len(seq_matrix), 20))
             # pad the sequence to the boxsize:
             npad = ((0, self._opts._windowlength-length), (0, 0))
             padded_seq_matrix = np.pad(oh_seq_matrix, pad_width=npad, mode='constant', constant_values=0)
@@ -1418,3 +1367,19 @@ def softmax(X, theta = 1.0, axis = None):
     # flatten if X was 1D
     if len(X.shape) == 1: p = p.flatten()
     return p
+
+def untar(file):
+    """Untar a file in the current wd.
+
+    Args:
+      file: A str specifying the filepath
+    """
+    try:
+        tar = tarfile.open(fname)
+        tar.extractall()
+        tar.close()
+    except:
+        print('ERROR: File is not a .tar.gz, or does not exist.')
+
+
+

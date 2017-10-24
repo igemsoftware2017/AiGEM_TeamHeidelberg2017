@@ -4,18 +4,29 @@ Inference mode for DeeProtein.
 import tensorflow as tf
 import numpy as np
 import json
-import sys
+import wget
 import helpers
+import argparse
 from goatools.obo_parser import GODag
 from DeeProtein import DeeProtein
-np.set_printoptions(threshold=np.inf) #for debug
+
 
 def main():
-    seq = sys.argv[1]
-    config_json = "/net/data.isilon/igem/2017/scripts/DeeProtein/config/DeeProtein_configINFERENCE1509.JSON"
-    GOdag = GODag('/net/data.isilon/igem/2017/data/gene_ontology/go.obo', optional_attrs=['relationship'])
-    with open(config_json) as config_fobj:
+    if FLAGS.GOdag:
+        obo_file = FLAGS.obo_file
+    else: # no GOdag file was specified -> download it.
+        url = 'http://purl.obolibrary.org/obo/go.obo'
+        obo_file = wget.download(url)
+    GOdag = GODag(obo_file, optional_attrs=['relationship'])
+
+    with open(FLAGS.config_json) as config_fobj:
         config_dict = json.load(config_fobj)
+
+    # set the gpu context
+    if not FLAGS.gpu:
+        if config_dict["gpu"] == 'True':
+            config_dict["gpu"] = "False"
+
     opts = helpers.OptionHandler(config_dict)
     deeprotein = DeeProtein(opts, inference=True)
 
@@ -37,13 +48,14 @@ def main():
         deeprotein.session.run(tf.global_variables_initializer())
         deeprotein.saver = tf.train.Saver()
         # restore the session from ckpt
-        deeprotein.restore_model_from_checkpoint('/net/data.isilon/igem/2017/data/nn_train/DeeProtein_UNIPROT_SQEMBED_FLt_noGarbage_ResNet20_886_INFERENCE/checkpoints/ckpt', deeprotein.session)
+        if FLAGS.restore_from_explicit_ckpt:
+            deeprotein.restore_model_from_checkpoint(FLAGS.restore_from_explicit_ckpt, deeprotein.session)
+        else:
+        # restore all the weights from dir in checkpointfile:
+            _ = deeprotein.load_model_weights(inference_net, session=deeprotein.session,
+                                              name='Classifier') #THIS RUNS THE SESSION INTERNALLY
 
-        # restore all the weights
-        # _ = deeprotein.load_model_weights(inference_net, session=deeprotein.session,
-        #                                   name='Classifier') #THIS RUNS THE SESSION INTERNALLY
-
-        encoded_seq = deeprotein.batchgen._encode_single_seq(seq)
+        encoded_seq = deeprotein.batchgen._encode_single_seq(FLAGS.sequence)
         # expand it to batch dim and channels dim:
         assert len(encoded_seq.shape) == 2
         encoded_seq = np.reshape(encoded_seq, [1, encoded_seq.shape[0], encoded_seq.shape[1], 1])
@@ -53,6 +65,7 @@ def main():
                                                               feed_dict={input_seq_node: encoded_seq})
         # logits is a 2D array of shape [1, nclasses]
         thresholded_logits = np.where(class_logits >= 0.5)
+
         # get the IDs of the classes:
         predicted_IDs = thresholded_logits[1].tolist()
 
@@ -60,25 +73,55 @@ def main():
         predicted_classes = [deeprotein.batchgen.id_to_class[_id] for _id in predicted_IDs]
         deeprotein.log_file.write('Predicted classes:\n')
 
-        # save this shit into a checkpoint:
-        # deeprotein.saver.save(deeprotein.session, '/net/data.isilon/igem/2017/data/nn_train/DeeProtein_UNIPROT_SQEMBED'
-        #                                           '_FLt_noGarbage_ResNet20_886_INFERENCE/checkpoints/')
-
-        # save all params to a binary:
-        deeprotein.save_params(inference_net, session=deeprotein.session, ignore=None)
-
-        #predicted_roots = [go for go in predicted_classes if not GOdag[go].get_all_children()]
 
         for i, go in enumerate(predicted_classes):
             try:
                 go = go.split('_')[1]
             except:
                 pass
-            deeprotein.log_file.write('%s\t%s:\t%f, %f\n' % (go, GOdag[go].name,
+            output = '%s\t%s:\t%f, %f\n' % (go, GOdag[go].name,
                                                              class_logits[0, predicted_IDs[i]],
-                                                             class_variance[0, predicted_IDs[i]]))
+                                                             class_variance[0, predicted_IDs[i]])
+            deeprotein.log_file.write(output)
+            print(output)
         if not predicted_classes:
-            deeprotein.log_file.write('NONE\n\n')
+            output = 'The sequence could not be classified with enough fidelity.\n\n'
+            deeprotein.log_file.write(output)
+            print(output)
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--sequence',
+        type=str,
+        required=True,
+        help='The amino_acid sequence to classify. Should at least 175AA long and contain only canonical AAs.')
+    parser.add_argument(
+        '--config_json',
+        type=str,
+        required=True,
+        help='Path to the config.JSON')
+    parser.add_argument(
+        '--obo_file',
+        type=str,
+        default=False,
+        help='The path to the download of the gene ontology file (go.obo). '
+             'If None is spefified, the file will be downloaded prior to inference.')
+    parser.add_argument(
+        '--restore_from_explicit_ckpt',
+        type=str,
+        default=False,
+        help='Restore the model from this explicit ckpt and not form the dir/ specified in config_json.')
+    parser.add_argument(
+        '--gpu',
+        type=str,
+        default=True,
+        help='Wheter to train in gpu context or not '
+             '(optional). Defaults to True.')
+    FLAGS, unparsed = parser.parse_known_args()
+
+    if unparsed:
+        print('Error, unrecognized flags:', unparsed)
+        exit(-1)
+
     main()
