@@ -1,5 +1,6 @@
 """
-Train DeeProtein. A config dict needs to be passed.
+Train a DeeProtein-model.
+
 """
 import argparse
 import json
@@ -16,14 +17,7 @@ def main():
         if config_dict["gpu"] == 'True':
             config_dict["gpu"] = "False"
 
-    # save all used scripts to the summaries dir
-    summaries_dir = config_dict['summaries_dir']
-    if not os.path.exists(summaries_dir):
-        os.mkdir(summaries_dir)
-    if not os.path.exists(os.path.join(summaries_dir, 'scripts')):
-        os.mkdir(os.path.join(summaries_dir, 'scripts'))
-
-    optionhandler = helpers.OptionHandler(config_dict)
+    optionhandler = helpers.optionhandler(config_dict)
     model = DeeProtein(optionhandler)
     model.train(restore_whole=FLAGS.restore_whole)
 

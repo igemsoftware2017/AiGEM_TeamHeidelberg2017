@@ -994,22 +994,3 @@ class StratifiedDictFASTA(dict):
                      }
         return self[key]
 
-def main():
-    """
-    The main function used to call the methods from the datasetgenerator.
-    """
-    uniprotfile_path = sys.argv[1]
-    uniprotcsv_path = sys.argv[2]
-    save_dir = sys.argv[3]
-    #EC_file = sys.argv[4]
-
-    dsgen = DatasetGenerator(uniprotfile_path, uniprotcsv_path, save_dir)
-    dsgen.uniprot_to_csv()
-    dsgen.separate_classes_by_GO()
-    dsgen.filter_count_and_write_all()
-
-    ## Before calling "generate dataset" shuffle the files by batchcommand shuf:
-    #dsgen.generate_dataset_by_GO_list(GO_file=EC_file)
-
-if __name__ == '__main__':
-    main()
