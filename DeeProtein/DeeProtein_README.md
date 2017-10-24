@@ -8,6 +8,8 @@
 - [GO-Tools](https://github.com/tanghaibao/goatools)
 - [SciPy 0.19](http://www.scipy.org/install.html)
 - [Pandas 0.20](https://pandas.pydata.org/pandas-docs/stable/index.html)
+- [scikit-learn 0.19](http://scikit-learn.org/stable/install.html#)
+- [seaborn 0.8](https://seaborn.pydata.org/index.html)
 
 
 ## Description
@@ -31,7 +33,7 @@ This package contains a Python library with the following funcitonality:
 
 1. Clone this git repository:
    ```bash
-   $ git clone <link to this repo>
+   $ git clone <link to this repo> && cd Heidelberg_2017/DeeProtein
    ````
    
 2. To infer a sequence on the pretrained model:
