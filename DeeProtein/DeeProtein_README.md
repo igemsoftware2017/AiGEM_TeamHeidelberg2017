@@ -22,11 +22,11 @@ This package contains a Python library with the following funcitonality:
 - a pretrained but extendable deep residual neural network to classify protein sequences for GO-terms:
   The model was trained on uniport database and achieved after 13 epochs an AUC under the ROC of 99%.
 
-[ROC](http://2017.igem.org/wiki/images/8/89/T--Heidelberg--2017_DP_ROC.png)
+<img src="imgs/T--Heidelberg--2017_DP_ROC.png" height="350">
 
   and with an average F1 score of 78%:
 
-[PR](http://2017.igem.org/wiki/images/f/f4/T--Heidelberg--2017_DP_Precision.png)
+<img src="imgs/T--Heidelberg--2017_DP_Precision.png" height="350">
 
 
 ## Usage
