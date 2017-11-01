@@ -1,61 +1,3 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1035806.svg)](https://doi.org/10.5281/zenodo.1035806)
-
-## Prerequisities
-
-- Python 3.5+
-- [Tensorflow 1.2+](https://www.tensorflow.org/api_docs/)
-- [Tensorlayer 1.5.4+](http://tensorlayer.readthedocs.io/en/latest/)
-- [GO-Tools](https://github.com/tanghaibao/goatools)
-- [SciPy 0.19](http://www.scipy.org/install.html)
-- [Pandas 0.20](https://pandas.pydata.org/pandas-docs/stable/index.html)
-- [scikit-learn 0.19](http://scikit-learn.org/stable/install.html#)
-- [seaborn 0.8](https://seaborn.pydata.org/index.html)
-
-
-## Description
-
-This package contains a Python library with the following funcitonality:
-
-- a comprehensive datapreprocessing pipeline, from the uniprot/swissprot download to the final train and valid datasets.
-- a pretrained protein embedding generator, applicable for the embedding of protein sequences.
-
-- a pretrained but extendable deep residual neural network to classify protein sequences for GO-terms:
-  The model was trained on uniport database and achieved after 13 epochs an AUC under the ROC of 99%
-  and with an average F1 score of 78%.
-
-<img src="imgs/T--Heidelberg--2017_DP_ROC.png" height="350">
-<img src="imgs/T--Heidelberg--2017_DP_Precision.png" height="350">
-
-
-## Usage
-
-1. Clone this git repository:
-   ```bash
-   $ git clone <link to this repo> && cd Heidelberg_2017/DeeProtein
-   ````
-   
-2. To infer a sequence on the pretrained model:
-   ```bash
-   $ python infer.py --sequence=MSGDRETCSTGLKFJI...
-   ````
-   
-3. For training a custom model:
-   ```bash
-   $ wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz
-   ````
-   ```bash
-   $ python process_data.py --uniprot_path=path_to_download --uniprot_csv=path_to_csv --save_dir=.
-   ````
-   After preprocessing is done edit the `config_dict` and call:
-   ```bash
-   $ python train.py --config_json=config_dict.JSON
-   ````
-   
-## Documentation
-
-Please find the [full code documentation](http://2017.igem.org/Team:Heidelberg/Software) on the iGEM wiki page of the 2017 
-Heidelberg team.
-
 Help on module helpers:
 
 NAME
@@ -1512,54 +1454,6 @@ FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/DeeProtein.py
 
 
-Help on module generate_embedding:
-
-NAME
-    generate_embedding
-
-FUNCTIONS
-    main()
-
-FILE
-    /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/generate_embedding.py
-
-
-Help on module infer:
-
-NAME
-    infer - Inference mode for DeeProtein.
-
-FUNCTIONS
-    main()
-
-FILE
-    /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/infer.py
-
-
-Help on module train:
-
-NAME
-    train - Train a DeeProtein-model.
-
-FUNCTIONS
-    main()
-
-FILE
-    /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/train.py
-
-
-Help on module validate:
-
-NAME
-    validate - Invoke the Model in validation mode and perform a run over the valid set.
-
-FUNCTIONS
-    main()
-
-FILE
-    /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/validate.py
-
-
 Help on module generate_batches:
 
 NAME
@@ -1570,18 +1464,5 @@ FUNCTIONS
 
 FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/generate_batches.py
-
-
-Help on module process_data:
-
-NAME
-    process_data - Preprocess the data to train a DeeProtein model
-
-FUNCTIONS
-    main()
-        The main function used to call the methods from the datasetgenerator.
-
-FILE
-    /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/process_data.py
 
 

@@ -1,2 +1,4 @@
-from DeeProtein_CLEAN import helpers
-from DeeProtein_CLEAN import DeeProtein
+import helpers
+import DeeProtein
+import DatasetGenerator
+import customlayers
