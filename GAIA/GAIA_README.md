@@ -44,6 +44,7 @@ A description, along with data for the software's wetlab validation can be found
    
 ## Documentation
 
+```
 Help on module GAIA:
 
 NAME
@@ -504,3 +505,4 @@ FUNCTIONS
 
 FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/GAIA/evolve.py
+```

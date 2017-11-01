@@ -60,6 +60,8 @@ This package contains a Python library with the following funcitonality:
 Please find all [explanation and validatation data](http://2017.igem.org/Team:Heidelberg/Software/DeeProtein) on the iGEM wiki page of the 2017 
 Heidelberg team.
 
+
+```
 Help on module helpers:
 
 NAME
@@ -1587,3 +1589,4 @@ FUNCTIONS
 
 FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/process_data.py
+```
