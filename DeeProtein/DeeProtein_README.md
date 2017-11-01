@@ -57,7 +57,7 @@ This package contains a Python library with the following funcitonality:
    
 ## Documentation
 
-Please find the [full code documentation](http://2017.igem.org/Team:Heidelberg/Software) on the iGEM wiki page of the 2017 
+Please find all [explanation and validatation data](http://2017.igem.org/Team:Heidelberg/Software/DeeProtein) on the iGEM wiki page of the 2017 
 Heidelberg team.
 
 Help on module helpers:
