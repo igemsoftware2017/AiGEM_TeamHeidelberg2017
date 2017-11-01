@@ -13,6 +13,9 @@
 
 
 ## Description
+DeeProtein is a multilabel classifier to predict protein function from sequence. The model was trained on ~8 million protein sequences on the uniprot database and classifies its input multimodal in 886 classes. DeeProtein is based on the ResNet architecture with 1dimensional kernels and 30 residual blocks. On the validation set of 4500 sequence DeeProtein achieved an AUC under the ROC of 99% and an average F1 score of 78%.
+A comprehensive explanation can be found [here](http://2017.igem.org/Team:Heidelberg/Software).
+
 
 This package contains a Python library with the following funcitonality:
 
@@ -31,25 +34,26 @@ This package contains a Python library with the following funcitonality:
 
 1. Clone this git repository:
    ```bash
-   $ git clone <link to this repo> && cd Heidelberg_2017/DeeProtein
-   ````
+   $ git clone https://github.com/igemsoftware2017/AiGEM_TeamHeidelberg2017 && cd AiGEM_TeamHeidelberg2017/DeeProtein
+   ```
    
 2. To infer a sequence on the pretrained model:
    ```bash
    $ python infer.py --sequence=MSGDRETCSTGLKFJI...
-   ````
+   ```
    
-3. For training a custom model:
+3. For training a custom model download the SwissProt database:
    ```bash
    $ wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz
-   ````
+   ```
+   And preprocess the data:
    ```bash
    $ python process_data.py --uniprot_path=path_to_download --uniprot_csv=path_to_csv --save_dir=.
-   ````
+   ```
    After preprocessing is done edit the `config_dict` and call:
    ```bash
    $ python train.py --config_json=config_dict.JSON
-   ````
+   ```
    
 ## Documentation
 
@@ -1583,5 +1587,3 @@ FUNCTIONS
 
 FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/DeeProtein/process_data.py
-
-

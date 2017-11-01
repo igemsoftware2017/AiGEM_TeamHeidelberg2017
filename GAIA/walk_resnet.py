@@ -66,7 +66,6 @@ if __name__ == '__main__':
         type=str,
         default=False,
         help='Path to the directory for the output. Overwrites the summaries_dir given in the config JSON.')
-    )
     FLAGS, unparsed = parser.parse_known_args()
     if unparsed:
         print('Error, unrecognized flags:', unparsed)

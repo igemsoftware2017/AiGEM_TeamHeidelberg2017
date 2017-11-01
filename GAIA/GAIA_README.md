@@ -8,37 +8,43 @@
 
 ## Description
 
-This package contains a Python library with the following funcitonality:
+GAIA is a genetic algorithm interfaced with a deep neural network as scoring function. It is part of the AiGEM (Artificial Intelligence for Genetic Evolution Mimicking) software suite of the Heidelberg 2017 iGEM Team.
 
-- A genetic Algorithm is interface with a deep neural network in order to perform in silico directed evolution of proteins
+A description, along with data for the software's wetlab validation can be found on [our wiki](http://2017.igem.org/Team:Heidelberg/Software).
 
 ## Usage
 
 1. Clone this git repository:
    ```bash
-   $ git clone [/]
-   ````
+   $ git clone https://github.com/igemsoftware2017/AiGEM_TeamHeidelberg2017 && cd AiGEM_TeamHeidelberg2017/GAIA
+   ```
 
-2. To infer a sequence on the pretrained model:
+2. To a sequence with the pretrained model:
+   Make sure to download the weigths from our [zenodo repository](https://doi.org/10.5281/zenodo.1035806) and to edit the ```config_dict.JSON``` accordingly.
+   
+   Create a sequence.gaia file in the following format:
+   ``` Line:
+        1 (optional) starts with '>' contains title of the stats.png plot
+        2 '[Float]>GO:[GO-term],[Float]>GO:[GO-term],[...]' contains goal GO-terms with their weight
+        3 'Float]>GO:[GO-term],[Float]>GO:[GO-term],[...]' contains avoid GO-terms with their weights
+        4 [Sequence to evolve]
+        5 'Maxmut: [Integer]' contains maximum number of mutations
+        6 'Notgarbage weight: [Float]' contains weight for not_garbage score
+        7 'Garbage_weight: [Float]' cotains weight for garbage score''')
+   ```
+   
+   Then run:
    ```bash
-   $ python infer.py --gpu=True 'MSGDRETCSTGLKFJI...'
-   ````
-
-3. For training a custom model:
+   $ python evolve.py --config_json=path/to/config.JSON --sequence=path/to/sequence/file
+   ```
+3. To plot the GAIA outputs run:
    ```bash
-   $ wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.dat.gz
-   ````
-   ```bash
-   $ python DatasetGenerator.py --sp_load 'path_to_download'
-   ````
-   After preprocessing is done edit the `config_dict` and call:
-   ```bash
-   $ python train.py --config config_dict.JSON
-   ````
-
+   $ python plot_evolved.py path/to/summaries_dir 
+   ```
+   
 ## Documentation
 
-Help on module gaia:
+Help on module GAIA:
 
 NAME
     gaia
@@ -439,11 +445,6 @@ DATA
 FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/GAIA/gaia.py
 
-
-problem in logfile_parser - IndexError: list index out of range
-
-problem in plot_evolved - ModuleNotFoundError: No module named 'genetic_alg'
-
 Help on module plot_randomized:
 
 NAME
@@ -468,8 +469,6 @@ FUNCTIONS
 FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/GAIA/plot_walk.py
 
-
-problem in ./walk_resnet.py - SyntaxError: invalid syntax (walk_resnet.py, line 69)
 
 Help on module score_combinations:
 
@@ -505,5 +504,3 @@ FUNCTIONS
 
 FILE
     /net/data.isilon/igem/2017/scripts/Heidelberg_2017/GAIA/evolve.py
-
-

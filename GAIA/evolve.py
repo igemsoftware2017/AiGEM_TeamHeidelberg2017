@@ -45,13 +45,11 @@ if __name__ == '__main__':
     parser.add_argument(
         '--config_json',
         type=str,
-  #      aliases=['c'],
         required=True,
         help='Path to the config.JSON')
     parser.add_argument(
         '--sequence',
         type=str,
-  #      aliases=['s'],
         default=False,
         help='''Path to the sequence file.
         Structure of sequence file.
