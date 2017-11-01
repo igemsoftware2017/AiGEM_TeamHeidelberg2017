@@ -20,12 +20,10 @@ This package contains a Python library with the following funcitonality:
 - a pretrained protein embedding generator, applicable for the embedding of protein sequences.
 
 - a pretrained but extendable deep residual neural network to classify protein sequences for GO-terms:
-  The model was trained on uniport database and achieved after 13 epochs an AUC under the ROC of 99%.
+  The model was trained on uniport database and achieved after 13 epochs an AUC under the ROC of 99%
+  and with an average F1 score of 78%.
 
 <img src="imgs/T--Heidelberg--2017_DP_ROC.png" height="350">
-
-  and with an average F1 score of 78%:
-
 <img src="imgs/T--Heidelberg--2017_DP_Precision.png" height="350">
 
 

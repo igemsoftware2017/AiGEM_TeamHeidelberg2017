@@ -29,7 +29,7 @@ if __name__ == '__main__':
         '--gpu',
         type=str,
         default=True,
-        help='Wheter to train in gpu context or not '
+        help='Whether to train in gpu context or not '
              '(optional). Defaults to True.')
     FLAGS, unparsed = parser.parse_known_args()
     if unparsed:

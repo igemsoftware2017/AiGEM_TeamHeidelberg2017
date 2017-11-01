@@ -12,7 +12,7 @@ from DeeProtein import DeeProtein
 
 
 def main():
-    if FLAGS.GOdag:
+    if FLAGS.obo_file:
         obo_file = FLAGS.obo_file
     else: # no GOdag file was specified -> download it.
         url = 'http://purl.obolibrary.org/obo/go.obo'

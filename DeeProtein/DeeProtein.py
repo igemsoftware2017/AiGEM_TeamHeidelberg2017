@@ -1157,7 +1157,7 @@ class DeeProtein():
         # set train flag back to true
         self.is_train = True
 
-    def generate_embedding(self, embedding_dims=1024, reduce_dims=False):
+    def generate_embedding(self, embedding_dims=512, reduce_dims=False):
         """Generate a protein-embedding based from a trained model.
         This function generates a Protein embedding based on the validation dataset.
         In detail it builds an inference graph, loads a pretrained model and stores the features of the
@@ -1195,13 +1195,18 @@ class DeeProtein():
             self.load_model_weights(inference_net, session=self.session, name='Classifier')
 
             # initialize the embedding with UNK token, the dict is updated automatically for UNK
-            self.embedding = np.zeros([1, 1024])
+            self.embedding = np.zeros([1, 512])
 
             for i in range(self.batchgen.eval_batch_nr): # this is calculated when we initialize batchgen
 
                 batch = self.batchgen.generate_valid_batch(include_garbage=False)
                 # run the session and retrieve the embedded_batch
                 embed_batch = self.session.run(self.encoder.outputs, feed_dict={input_seq_node: batch})
+
+                # reshape to 2D:
+                embed_batch = np.reshape(embed_batch, [self._opts._batchsize, embed_batch.shape[-1]])
+
+                print(embed_batch.shape)
 
                 # Add the batch to the complete embedding:
                 self.embedding = np.concatenate([self.embedding, embed_batch], axis=0)
@@ -1217,7 +1222,7 @@ class DeeProtein():
             fitted_embedding = pca.transform(self.embedding)
 
         else:
-            assert embedding_dims == 1024
+            assert embedding_dims == 512
             fitted_embedding = self.embedding
 
         tf.reset_default_graph()
@@ -1242,7 +1247,7 @@ class DeeProtein():
                 # do the damn ops for tensorboard:
                 config = projector.ProjectorConfig()
                 embedding = config.embeddings.add()
-                embedding.tensor_name = embedding_Var.name
+                embedding.tensor_name = 'ProteinEmbedding'
                 # Link this tensor to its metadata file (e.g. labels).
                 embedding.metadata_path = os.path.join(embedding_dir, 'metadata.tsv')
 
@@ -1255,14 +1260,34 @@ class DeeProtein():
 
                 # run it:
                 _ = embedding_sess.run(mockOP,
-                                       feed_dict={embedding_node: fitted_embedding}) # TODO edit here
+                                       feed_dict={embedding_node: fitted_embedding})
 
                 saver.save(embedding_sess, os.path.join(embedding_dir, "ProteinEmbedding.ckpt"), 1)
 
             # now save the metadata as tsv:
+
+            # load the mapping from json:
+            mapping_dict = '/net/data.isilon/igem/2017/data/swissprot_with_EC/swissprot_with_EC.csvGO_EC_mapping.p'
+
+            with open(mapping_dict) as jsonf:
+                mapping = json.load(jsonf)
+
             with open(os.path.join(embedding_dir, 'metadata.tsv'), "w") as out_fobj:
-                for key in self.batchgen.embedding_dict:
-                    line = [','.join(self.batchgen.embedding_dict[key]['labels']), key,]
+                header = '\t'.join(['GO(s)', 'EC(s)', 'name', 'ID'])
+                header += '\n'
+                out_fobj.write(header)
+                for n, key in enumerate(self.batchgen.embedding_dict.keys()):
+                    # get the mapping from GO to EC:
+                    EC = set()
+                    for go in self.batchgen.embedding_dict[key]['labels']:
+                        try:
+                            ec_map = mapping[go]
+                            EC.update(ec_map)
+                        except KeyError:
+                            ec_map = ['no_EC_assigned']
+                            EC.update(ec_map)
+                    EC_list = list(EC)
+                    line = [','.join(self.batchgen.embedding_dict[key]['labels']), ','.join(EC_list), key, str(n)]
                     line = '\t'.join(line)
                     line += '\n'
                     out_fobj.write(line)

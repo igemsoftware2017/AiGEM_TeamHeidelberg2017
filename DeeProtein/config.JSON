@@ -10,7 +10,7 @@
   "valid_data": "dataset_VALID.csv.shuffled",
   "batches_dir": "dataset/examples/",
   "summaries_dir": "DeeProtein_Summary/",
-  "restore_path": "/net/data.isilon/igem/2017/data/nn_train/DeeProtein_UNIPROT_SQEMBED_FLt_noGarbage_ResNet20_886_rest.01/0.003_CHECKPOINTS120k",
+  "restore_path": "path_to_weights",
   "num_epochs": 1000,
   "num_steps": 500000,
   "n_classes": 886,

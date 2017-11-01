@@ -1,4 +1,5 @@
 import matplotlib
+matplotlib.use('Agg')
 import tensorflow as tf
 import numpy as np
 import re, os
@@ -266,7 +267,7 @@ class RocTracker():
           iGEM_style: `bool`, whether to plot in the iGEM-Heidelberg style layout.
         """
         plt.ioff()
-        fig = plt.figure(1, figsize=(8, 8), dpi=200)
+        fig = plt.figure(1, figsize=(5, 5), dpi=200)
         plt.plot(x, y, color='#005493', lw=2, label=legend)
         if include_linear:
             plt.plot([0, 1], [0, 1], color='#B9B9B9', lw=2, linestyle="--")
@@ -445,8 +446,13 @@ class BatchGenerator():
             self.embedding_dict[name]['labels'] = labels
             self.embedding_dict[name]['id'] = len(self.embedding_dict)
         else:
-            print(name)
-            print('WARNING: Overwrote value in embedding dict. Check infile for redundant sequences!')
+            # get a new entry to the dict:
+            name_matches = [k for k in self.embedding_dict.keys() if k.startswith(name)]
+            new_name = name + str(len(name_matches))
+            assert len(self.embedding_dict) > 0
+            self.embedding_dict[new_name] = {}
+            self.embedding_dict[new_name]['labels'] = labels
+            self.embedding_dict[new_name]['id'] = len(self.embedding_dict)
 
     def _csv_EC_decoder(self, in_csv, encoded_labels=True):
         """Helper function for _process_csv().
@@ -721,10 +727,57 @@ class BatchGenerator():
 
         return batch, label_batch, positions
 
+    def generate_binary_batch(self):
+        """Generate a binary batch for training protein activity.
+
+        This function requires a special input dataset, where the labels are already encoded as their target float.
+        Thus this function does NOT use the GO-file nor the examples dumps.
+        Labels should be encoded from 0 (no activity) over 0.5 (first active bin) to 1. (maximum activity).
+
+        Returns:
+            batch: A np.ndarray holding the batch
+            labels: A np.ndarray holding the labels
+        """
+        seq_tensors = []
+        labels = []
+        in_csv = self.traindata
+        for i in range(self._opts._batchsize):
+            try:
+                """ Note that this is not shuffled! """
+                name, label, seq_tensor, _, _ = self._process_csv(in_csv, return_name=True,
+                                                                  encode_labels=False)
+                seq_tensors.append(seq_tensor)
+                labels.append(label)
+            except IndexError: # catches error from csv_decoder
+                # reopen the file:
+                in_csv.close()
+                # TODO: implement file shuffling when we reopen the file
+                self.traindata = open(self._opts._traindata, 'r')
+                in_csv = self.traindata
+                """ redo """
+                name, label, seq_tensor, _, _ = self._process_csv(in_csv, return_name=True,
+                                                                  encode_labels=False)
+                seq_tensors.append(seq_tensor)
+                labels.append(label)
+
+        # encode the labels "one-hot" although not really one hot, but rather with the passed score
+        labels_tensor = []
+        for i in labels:
+            labels_tensor = [np.float32(l) for l in labels]
+        del labels
+        labels = np.stack(labels_tensor, axis=0) # [b, 1]
+        #print(labels.shape)
+        batch = np.stack(seq_tensors, axis=0)
+        batch = np.expand_dims(batch, axis=-1) # [b, aa, w, 1]
+
+        return batch, labels
+
     def generate_valid_batch(self, include_garbage=False):
         """Generate a batch of sequences form the valid set for inference.
         Draws samples from the valid set and generates a batch to infer the labels. As everything is fed into
         the same graph, we use the same kind of preprocessing as in generate_batch().
+
+        This function is also used in the DeeProtein.generate_embedding().
 
         Args:
           include_garbage: A `bool`, if True, include garbage sequences into the valid batch (optional).
@@ -1028,7 +1081,10 @@ class TFrecords_generator():
         """
         _, seq, labels, structure_str = self._csv_EC_decoder(queue)
         seq_matrix, start_pos, length = self._seq2tensor(seq)
-        structure_tensor = self._get_structure(structure_str, length)
+        try:
+            structure_tensor = self._get_structure(structure_str, length)
+        except KeyError:
+            structure_tensor = 'no_stucture_defined'
         # encode the label one_hot:
         oh_label_tensor = self.label_enc.fit_transform(labels) # of shape [1, n_classes]
         classes = oh_label_tensor.shape[0]
