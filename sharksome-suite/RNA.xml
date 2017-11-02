@@ -1,0 +1,748 @@
+<structure>
+  <alias>
+    <element name="CN">
+      <alone>CN</alone>
+      <start>C5</start>
+      <middle>C</middle>
+      <end>C3</end>
+    </element>
+    <element name="A">
+      <alone>AN</alone>
+      <start>A5</start>
+      <middle>A</middle>
+      <end>A3</end>
+    </element>
+    <element name="C">
+      <alone>CN</alone>
+      <start>C5</start>
+      <middle>C</middle>
+      <end>C3</end>
+    </element>
+    <element name="UN">
+      <alone>UN</alone>
+      <start>U5</start>
+      <middle>U</middle>
+      <end>U3</end>
+    </element>
+    <element name="G">
+      <alone>GN</alone>
+      <start>G5</start>
+      <middle>G</middle>
+      <end>G3</end>
+    </element>
+    <element name="G3">
+      <alone>G3</alone>
+      <start>G</start>
+      <middle>G</middle>
+      <end>G3</end>
+    </element>
+    <element name="G">
+      <alone>GN</alone>
+      <start>G5</start>
+      <middle>G</middle>
+      <end>G3</end>
+    </element>
+    <element name="AN">
+      <alone>AN</alone>
+      <start>A5</start>
+      <middle>A</middle>
+      <end>A3</end>
+    </element>
+    <element name="A3">
+      <alone>A3</alone>
+      <start>A</start>
+      <middle>A</middle>
+      <end>A3</end>
+    </element>
+    <element name="GN">
+      <alone>GN</alone>
+      <start>G5</start>
+      <middle>G</middle>
+      <end>G3</end>
+    </element>
+    <element name="C">
+      <alone>CN</alone>
+      <start>C5</start>
+      <middle>C</middle>
+      <end>C3</end>
+    </element>
+    <element name="A">
+      <alone>AN</alone>
+      <start>A5</start>
+      <middle>A</middle>
+      <end>A3</end>
+    </element>
+    <element name="A5">
+      <alone>A5</alone>
+      <start>A5</start>
+      <middle>A</middle>
+      <end>A</end>
+    </element>
+    <element name="U">
+      <alone>UN</alone>
+      <start>U5</start>
+      <middle>U</middle>
+      <end>U3</end>
+    </element>
+    <element name="G5">
+      <alone>G5</alone>
+      <start>G5</start>
+      <middle>G</middle>
+      <end>G</end>
+    </element>
+    <element name="U3">
+      <alone>U3</alone>
+      <start>U</start>
+      <middle>U</middle>
+      <end>U3</end>
+    </element>
+    <element name="U">
+      <alone>UN</alone>
+      <start>U5</start>
+      <middle>U</middle>
+      <end>U3</end>
+    </element>
+    <element name="C5">
+      <alone>C5</alone>
+      <start>C5</start>
+      <middle>C</middle>
+      <end>C</end>
+    </element>
+    <element name="C3">
+      <alone>C3</alone>
+      <start>C</start>
+      <middle>C</middle>
+      <end>C3</end>
+    </element>
+    <element name="U5">
+      <alone>U5</alone>
+      <start>U5</start>
+      <middle>U</middle>
+      <end>U</end>
+    </element>
+  </alias>
+  <residue name="GN" length="33">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>25</middle_post>
+      <end>32</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="AN" length="32">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>24</middle_post>
+      <end>31</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="UN" length="29">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>21</middle_post>
+      <end>28</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="CN" length="30">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>22</middle_post>
+      <end>29</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="G" length="34">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>27</middle_post>
+      <end>33</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="A" length="33">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>26</middle_post>
+      <end>32</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="U" length="30">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>23</middle_post>
+      <end>29</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="C" length="31">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>24</middle_post>
+      <end>30</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="G5" length="32">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>25</middle_post>
+      <end>31</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="A5" length="31">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>24</middle_post>
+      <end>30</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="U5" length="28">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>21</middle_post>
+      <end>27</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="C5" length="29">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>8</middle_pre>
+      <bond>10</bond>
+      <middle_post>22</middle_post>
+      <end>28</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>1</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>1</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>8</start>
+      <bond>10</bond>
+      <end>-7</end>
+    </rotation>
+    <rotation index="3">
+      <start>-7</start>
+      <bond>-1</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="G3" length="35">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>27</middle_post>
+      <end>34</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="A3" length="34">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>26</middle_post>
+      <end>33</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="U3" length="31">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>23</middle_post>
+      <end>30</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="C3" length="32">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.6</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.6</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>10</middle_pre>
+      <bond>12</bond>
+      <middle_post>24</middle_post>
+      <end>31</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>3</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>3</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="2">
+      <start>10</start>
+      <bond>12</bond>
+      <end>-8</end>
+    </rotation>
+    <rotation index="3">
+      <start>-8</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+</structure>

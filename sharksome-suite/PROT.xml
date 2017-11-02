@@ -1,0 +1,490 @@
+<structure>
+  <alias>
+    <element name="NALA">
+      <alone>NALA</alone>
+      <start>NALA</start>
+      <middle>ALA</middle>
+      <end>ALA</end>
+    </element>
+    <element name="CALA">
+      <alone>CALA</alone>
+      <start>ALA</start>
+      <middle>ALA</middle>
+      <end>CALA</end>
+    </element>
+    <element name="ALA">
+      <alone>NALA</alone>
+      <start>NALA</start>
+      <middle>ALA</middle>
+      <end>CALA</end>
+    </element>
+  </alias>
+  <alias>
+    <element name="NGLY">
+      <alone>NGLY</alone>
+      <start>NGLY</start>
+      <middle>GLY</middle>
+      <end>GLY</end>
+    </element>
+    <element name="CGLY">
+      <alone>CGLY</alone>
+      <start>GLY</start>
+      <middle>GLY</middle>
+      <end>CGLY</end>
+    </element>
+    <element name="GLY">
+      <alone>NGLY</alone>
+      <start>NGLY</start>
+      <middle>GLY</middle>
+      <end>CGLY</end>
+    </element>
+  </alias>
+  <alias>
+    <element name="NHIS">
+      <alone>NHIS</alone>
+      <start>NHIS</start>
+      <middle>HIS</middle>
+      <end>HIS</end>
+    </element>
+    <element name="CHIS">
+      <alone>CHIS</alone>
+      <start>HIS</start>
+      <middle>HIS</middle>
+      <end>CHIS</end>
+    </element>
+    <element name="HIS">
+      <alone>NHIS</alone>
+      <start>NHIS</start>
+      <middle>HIS</middle>
+      <end>CHIS</end>
+    </element>
+  </alias>
+  <alias>
+    <element name="NGLU">
+      <alone>NGLU</alone>
+      <start>NGLU</start>
+      <middle>GLU</middle>
+      <end>GLU</end>
+    </element>
+    <element name="CGLU">
+      <alone>CGLU</alone>
+      <start>GLU</start>
+      <middle>GLU</middle>
+      <end>CGLU</end>
+    </element>
+    <element name="GLU">
+      <alone>NGLU</alone>
+      <start>NGLU</start>
+      <middle>GLU</middle>
+      <end>CGLU</end>
+    </element>
+  </alias>
+  <residue name="ALA" length="10">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>8</middle_post>
+      <end>9</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="NALA" length="12">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>4</middle_pre>
+      <bond>6</bond>
+      <middle_post>10</middle_post>
+      <end>11</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>4</start>
+      <bond>6</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>4</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="CALA" length="11">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-3</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>8</middle_post>
+      <end>10</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-3</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-3</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="GLY" length="7">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>5</middle_post>
+      <end>6</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="NGLY" length="9">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>4</middle_pre>
+      <bond>6</bond>
+      <middle_post>7</middle_post>
+      <end>8</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>4</start>
+      <bond>6</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>4</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="CGLY" length="8">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-3</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>6</middle_post>
+      <end>7</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-3</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-3</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="HIS" length="17">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>15</middle_post>
+      <end>16</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="NHIS" length="19">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>4</middle_pre>
+      <bond>6</bond>
+      <middle_post>17</middle_post>
+      <end>18</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>4</start>
+      <bond>6</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>4</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="CHIS" length="18">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-3</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>15</middle_post>
+      <end>17</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-3</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-3</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="GLU" length="15">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>13</middle_post>
+      <end>14</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="NGLU" length="17">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-2</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>4</middle_pre>
+      <bond>6</bond>
+      <middle_post>15</middle_post>
+      <end>16</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>4</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>4</start>
+      <bond>6</bond>
+      <end>-2</end>
+    </rotation>
+    <rotation index="2">
+      <start>4</start>
+      <bond>-2</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+  <residue name="CGLU" length="16">
+    <append>
+      <newFirstAtom>0</newFirstAtom>
+      <oldLastAtom>-1</oldLastAtom>
+      <bondLength>1.32</bondLength>
+    </append>
+    <prepend>
+      <newLastAtom>-3</newLastAtom>
+      <oldFirstAtom>0</oldFirstAtom>
+      <bondLength>1.32</bondLength>
+    </prepend>
+    <backbone>
+      <start>0</start>
+      <middle_pre>2</middle_pre>
+      <bond>4</bond>
+      <middle_post>13</middle_post>
+      <end>15</end>
+    </backbone>
+    <rotation index="0">
+      <start>0</start>
+      <bond>2</bond>
+      <end>end</end>
+    </rotation>
+    <rotation index="1">
+      <start>2</start>
+      <bond>4</bond>
+      <end>-3</end>
+    </rotation>
+    <rotation index="2">
+      <start>2</start>
+      <bond>-3</bond>
+      <end>end</end>
+    </rotation>
+  </residue>
+</structure>
