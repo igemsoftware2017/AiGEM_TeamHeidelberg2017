@@ -7,5 +7,3 @@ Explanations and comprehensive validataion is given on the [Heidelberg 2017 wiki
 [DeeProtein-Documentation](https://github.com/igemsoftware2017/AiGEM_TeamHeidelberg2017/blob/master/DeeProtein/DeeProtein_README.md)
 
 [GAIA-Documentation](https://github.com/igemsoftware2017/AiGEM_TeamHeidelberg2017/blob/master/GAIA/GAIA_README.md)
-
-[MAWS2.0-Documentation](https://github.com/igemsoftware2017/AiGEM_TeamHeidelberg2017/blob/master/sharksome-suite/README.md)
