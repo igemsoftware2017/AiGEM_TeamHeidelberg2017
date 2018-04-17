@@ -1,3 +1,5 @@
+# ATTENTION: THIS REPOSITORY IS NO LONGER BEING MAINTAINED. IMPROVED VERSIONS MIGHT BE ANOUNCED IN NEAR FUTURE.
+
 # Welcome to the AiGEM (Artificial Intelligence for Genetic Evolution Mimicking) software suite
 <img src="img.svg" height="350">
 
